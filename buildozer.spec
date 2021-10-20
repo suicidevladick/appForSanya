@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = SanyaApp
+title = Mortgage Calculator
 
 # (str) Package name
-package.name = sanyaapp
+package.name = mortgagecalculator
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.vladick
+package.domain = org.wiseplat
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -28,7 +28,7 @@ source.dir = .
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.1
+version = 0.2
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
