@@ -57,8 +57,6 @@ MDScreen:
 '''
 
 
-
-
 class MainApp(MDApp):
     def build(self):
         return Builder.load_string(KV)
