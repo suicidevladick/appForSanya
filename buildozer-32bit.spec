@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = Mortgage Calculator
+title = SanyaApp
 
 # (str) Package name
-package.name = mortgagecalculator
+package.name = sanya
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.wiseplat
+package.domain = org.vladick
 
 # (str) Source code where the main.py live
 source.dir = .
