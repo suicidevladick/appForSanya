@@ -10,9 +10,17 @@ from kivymd.icon_definitions import md_icons
 from kivy.uix.scrollview import ScrollView
 from kivymd.font_definitions import fonts
 
-
-
 KV = '''
+# https://stackoverflow.com/questions/65698145/kivymd-tab-name-containing-icons-and-text
+# this import will prevent disappear tabs through some clicks on them)))
+#:import md_icons kivymd.icon_definitions.md_icons
+#:import fonts kivymd.font_definitions.fonts
+
+# https://github.com/tito/kivy-gettext-example
+# this import for multilingual support
+
+
+
 # Menu item in the DrawerList list.
 <ItemDrawer>:
     theme_text_color: "Custom"
@@ -90,7 +98,20 @@ Screen:
                         tab_indicator_anim: True
                         background_color: 0.1, 0.1, 0.1, 1
                         
-                    Widget:
+                    Tab:
+                        id: tab1
+                        name: 'tab1'
+                        text: "Inputs"
+
+                        BoxLayout:
+                            orientation: 'vertical'
+                            padding: "10dp"
+
+                            BoxLayout:
+                                orientation: 'horizontal'
+
+                                MDIconButton:
+                                    icon: "calendar-month"
                         
                             
 
@@ -101,6 +122,7 @@ Screen:
             ContentNavigationDrawer:
                 id: content_drawer
 '''
+
 
 class Tab(MDFloatLayout, MDTabsBase):
     pass
@@ -160,10 +182,11 @@ class appForSanya(MDApp):
         # for name_tab in list(md_icons.keys())[15:30]:
         #     self.root.ids.tabs.add_widget(Tab(icon=name_tab, title=name_tab))
         for icon_name, name_tab in icons_item_menu_tabs.items():
-            self.root.ids.tabs.add_widget(Tab(text=f"[ref={name_tab}][font={fonts[-1]['fn_regular']}]{md_icons[icon_name]}[/font][/ref]  {name_tab}"))
+            self.root.ids.tabs.add_widget(
+                Tab(text=f"[ref={name_tab}][font={fonts[-1]['fn_regular']}]{md_icons[icon_name]}[/font][/ref]  {name_tab}"))
 
     def on_tab_switch(
-        self, instance_tabs, instance_tab, instance_tab_label, tab_text
+            self, instance_tabs, instance_tab, instance_tab_label, tab_text
     ):
         '''Called when switching tabs.
 
@@ -174,5 +197,9 @@ class appForSanya(MDApp):
         '''
 
         print(tab_text)
+
+    def on_star_click(self):
+        pass
+
 
 appForSanya().run()
