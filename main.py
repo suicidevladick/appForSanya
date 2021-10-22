@@ -74,6 +74,12 @@ Screen:
                         MDTextField:
                             hint_text: "No helper text"
                             halign: 'center'
+                            
+                        Image:
+                            id: avatar
+                            size_hint: None, None
+                            size: "100dp", "100dp"
+                            source: "data/logo/kivy-icon-256.png"
 
 
         MDNavigationDrawer:
