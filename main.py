@@ -1,10 +1,16 @@
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty, ListProperty
-
+from kivymd.uix.floatlayout import MDFloatLayout
+from kivymd.uix.tab import MDTabsBase
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.list import OneLineIconListItem, MDList
+from kivymd.icon_definitions import md_icons
+from kivy.uix.scrollview import ScrollView
+from kivymd.font_definitions import fonts
+
+
 
 KV = '''
 # Menu item in the DrawerList list.
@@ -32,8 +38,8 @@ KV = '''
         Image:
             id: avatar
             size_hint: None, None
-            size: "56dp", "56dp"
-            source: "data/logo/kivy-icon-256.png"
+            size: "100dp", "100dp"
+            source: "data/logo/logo512min.png"
 
     MDLabel:
         text: "username"
@@ -57,29 +63,36 @@ KV = '''
 Screen:
 
     MDNavigationLayout:
+    
 
         ScreenManager:
 
             Screen:
-
+                
                 BoxLayout:
                     orientation: 'vertical'
+                    
+                    
 
                     MDToolbar:
                         title: "Home"
                         elevation: 10
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
-
+                        right_action_items: [['star-outline', lambda x: app.on_star_click()]]
+                        md_bg_color: 0,0,0,1
+                        
+                    
+                    MDTabs:
+                        id: tabs
+                        on_tab_switch: app.on_tab_switch(*args)
+                        size_hint_y: None
+                        height: "48dp"
+                        tab_indicator_anim: True
+                        background_color: 0.1, 0.1, 0.1, 1
+                        
                     Widget:
-                        MDTextField:
-                            hint_text: "No helper text"
-                            halign: 'center'
+                        
                             
-                        Image:
-                            id: avatar
-                            size_hint: None, None
-                            size: "100dp", "100dp"
-                            source: "data/logo/kivy-icon-256.png"
 
 
         MDNavigationDrawer:
@@ -88,6 +101,9 @@ Screen:
             ContentNavigationDrawer:
                 id: content_drawer
 '''
+
+class Tab(MDFloatLayout, MDTabsBase):
+    pass
 
 
 class ContentNavigationDrawer(BoxLayout):
@@ -124,10 +140,39 @@ class appForSanya(MDApp):
             "checkbox-marked": "Shared with me",
             "upload": "Upload",
         }
+        icons_item_menu_tabs = {
+            "folder": "1Tab",
+            "account-multiple": "2Tab",
+            "star": "3Tab",
+            "history": "4Tab",
+            "checkbox-marked": "5Tab",
+            "upload": "6Tab",
+            "android": "7Tab",
+            "github": "8Tab",
+            "youtube": "9Tab",
+            "shield-sun": "12Tab",
+        }
         for icon_name in icons_item.keys():
             self.root.ids.content_drawer.ids.md_list.add_widget(
                 ItemDrawer(icon=icon_name, text=icons_item[icon_name])
             )
 
+        # for name_tab in list(md_icons.keys())[15:30]:
+        #     self.root.ids.tabs.add_widget(Tab(icon=name_tab, title=name_tab))
+        for icon_name, name_tab in icons_item_menu_tabs.items():
+            self.root.ids.tabs.add_widget(Tab(text=f"[ref={name_tab}][font={fonts[-1]['fn_regular']}]{md_icons[icon_name]}[/font][/ref]  {name_tab}"))
+
+    def on_tab_switch(
+        self, instance_tabs, instance_tab, instance_tab_label, tab_text
+    ):
+        '''Called when switching tabs.
+
+        :type instance_tabs: <kivymd.uix.tab.MDTabs object>;
+        :param instance_tab: <__main__.Tab object>;
+        :param instance_tab_label: <kivymd.uix.tab.MDTabsLabel object>;
+        :param tab_text: text or name icon of tab;
+        '''
+
+        print(tab_text)
 
 appForSanya().run()
